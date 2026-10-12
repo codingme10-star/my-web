@@ -3,7 +3,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="myweb.jpg">
+    <link rel=" website icon" href="myweb.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>my-ToDo</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -114,7 +114,7 @@
         <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
             <div class="flex items-center gap-3">
                 <div class="bg-black/40 p-2.5 rounded-2xl backdrop-blur-sm shadow-lg border border-white/15">
-                    <img src="myweb.jpg" class="text-xl sm:text-2xl text-amber-400">
+                    <img src="myweb.jpg" class="fa-fa-solid fa-city text-xl sm:text-2xl text-amber-400">
                 </div>
                 <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-wide drop-shadow-md">my_ToDo </h1>
             </div>
@@ -149,9 +149,9 @@
 
     <main class="w-full max-w-xl mx-auto px-4 flex-grow flex flex-col items-center justify-center my-4 sm:my-6">
         <div class="bg-black/40 p-1.5 rounded-2xl flex gap-1 mb-6 backdrop-blur-sm border border-white/20 w-full max-w-md shadow-xl">
-            <button onclick="setMode('pomodoro')" id="btn-pomodoro" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition custom-theme-btn shadow">تركيز</button>
-            <button onclick="setMode('shortBreak')" id="btn-shortBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">راحة قصيرة</button>
-            <button onclick="setMode('longBreak')" id="btn-longBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">راحة طويلة</button>
+            <button onclick="setMode('pomodoro')" id="btn-pomodoro" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition custom-theme-btn shadow">study</button>
+            <button onclick="setMode('shortBreak')" id="btn-shortBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">break s.t</button>
+            <button onclick="setMode('longBreak')" id="btn-longBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">break l.t</button>
         </div>
 
         <div class="relative w-full">
@@ -162,7 +162,7 @@
                 </svg>
 
                 <div class="text-6xl sm:text-8xl font-black tracking-widest my-4 font-mono drop-shadow-lg z-25 select-none" id="timer-display">
-                    25:00
+                    35:00
                 </div>
 
                 <div class="flex items-center justify-center gap-3 w-full z-25 mt-4 px-2">
@@ -219,7 +219,7 @@
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-playstation text-3xl text-indigo-400"></i>
                     <div class="text-right">
-                        <h3 class="font-bold text-base sm:text-lg">جلسة بلايستيشن / ترفيه</h3>
+                        <h3 class="font-bold text-base sm:text-lg">العب تص بلايستشن روق على حالك 😎</h3>
                         <p class="text-xs text-gray-400">تفتح المهمة طوال اليوم بعد تفعيلها</p>
                     </div>
                 </div>
@@ -690,7 +690,7 @@
             const seconds = timeLeft % 60;
             const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             document.getElementById('timer-display').innerText = formatted;
-            document.title = `${formatted} - مؤقت نيويورك بومودورو`;
+            document.title = `${formatted} - my_ToDo`;
             updateBorderProgress();
         }
 
