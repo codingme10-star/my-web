@@ -1,25 +1,28 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my-TODI - Pomodoro Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مؤقت نيويورك بومودورو - Pomodoro Timer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;700;900&family=Alexandria:wght@400;700;900&family=Changa:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- STYLESHEET (style.css integration) -->
     <style>
         html, body {
             height: 100%;
-            width: 100vw;
+            width: 100%;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), url('"C:\Users\abdullah\Downloads\Picsart_26-10-08_18-12-36-869.jpg"');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=1920&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -29,17 +32,19 @@
 
         .progress-box {
             position: relative;
-            background: rgba(15, 23, 42, 0.35);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 1.75rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 2rem;
             z-index: 1;
         }
 
         .blur-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
@@ -55,7 +60,7 @@
 
         .progress-rect-bg {
             fill: none;
-            stroke: rgba(255, 255, 255, 0.25);
+            stroke: rgba(255, 255, 255, 0.2);
             stroke-width: 6;
             rx: 1.75rem;
             ry: 1.75rem;
@@ -89,11 +94,11 @@
         .font-amiri { font-family: 'Amiri', serif; }
 
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
@@ -104,84 +109,70 @@
 </head>
 <body id="body-bg" class="text-white min-h-screen flex flex-col justify-between transition-colors duration-500 font-tajawal">
 
-    <header class="w-full px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="flex items-center gap-3">
-            <div class="bg-black/30 p-2.5 rounded-2xl backdrop-blur-sm shadow-lg border border-white/15">
-                <i class="fa-solid fa-city text-2xl text-amber-400"></i>
+    <header class="w-full px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto gap-4">
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+            <div class="flex items-center gap-3">
+                <div class="bg-black/40 p-2.5 rounded-2xl backdrop-blur-sm shadow-lg border border-white/15">
+                    <i class="fa-solid fa-city text-xl sm:text-2xl text-amber-400"></i>
+                </div>
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-wide drop-shadow-md">نيويورك بومودورو</h1>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black tracking-wide drop-shadow-md">نيويورك بومودورو</h1>
         </div>
 
-        <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
-            <div class="bg-black/40 px-3.5 py-2 rounded-xl backdrop-blur-md border border-amber-500/40 flex items-center gap-2 shadow-lg" title="رصيد العملات الذهبية">
-                <i class="fa-solid fa-coins text-amber-400 text-lg animate-bounce"></i>
+        <div class="flex items-center gap-2 flex-wrap justify-center sm:justify-end w-full sm:w-auto">
+            <div class="bg-black/50 px-3.5 py-2 rounded-xl backdrop-blur-md border border-amber-500/40 flex items-center gap-2 shadow-lg" title="رصيد العملات الذهبية">
+                <i class="fa-solid fa-coins text-amber-400 text-base animate-bounce"></i>
                 <span id="coins-display" class="font-black text-amber-300 text-base">0</span>
             </div>
 
-            <button onclick="toggleWeeklyModal()" class="bg-black/30 hover:bg-black/50 px-3.5 py-2.5 rounded-xl backdrop-blur-sm transition text-sm font-bold flex items-center gap-2 shadow border border-white/15">
+            <button onclick="toggleWeeklyModal()" class="bg-black/40 hover:bg-black/60 p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl backdrop-blur-sm transition text-sm font-bold flex items-center gap-2 shadow border border-white/15 active:scale-95" title="المهام الأسبوعية">
                 <i class="fa-solid fa-calendar-week text-amber-400"></i>
-                <span class="hidden sm:inline">المهام الأسبوعية</span>
+                <span class="hidden md:inline">المهام الأسبوعية</span>
             </button>
 
-            <button onclick="toggleEntertainmentModal()" class="bg-black/30 hover:bg-black/50 px-3.5 py-2.5 rounded-xl backdrop-blur-sm transition text-sm font-bold flex items-center gap-2 shadow border border-white/15">
+            <button onclick="toggleEntertainmentModal()" class="bg-black/40 hover:bg-black/60 p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl backdrop-blur-sm transition text-sm font-bold flex items-center gap-2 shadow border border-white/15 active:scale-95" title="الترفيه">
                 <i class="fa-solid fa-gamepad text-purple-400"></i>
-                <span class="hidden sm:inline">الترفيه</span>
+                <span class="hidden md:inline">الترفيه</span>
             </button>
 
-            <button onclick="toggleSettingsModal()" class="bg-black/30 hover:bg-black/50 px-3.5 py-2.5 rounded-xl backdrop-blur-sm transition text-sm flex items-center gap-2 shadow border border-white/15">
+            <button onclick="toggleSettingsModal()" class="bg-black/40 hover:bg-black/60 p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl backdrop-blur-sm transition text-sm flex items-center gap-2 shadow border border-white/15 active:scale-95" title="التخصيص">
                 <i class="fa-solid fa-palette text-amber-400"></i>
-                <span class="hidden sm:inline">التخصيص</span>
+                <span class="hidden md:inline">التخصيص</span>
             </button>
 
-            <button onclick="toggleSound()" id="sound-btn" class="bg-black/30 hover:bg-black/50 px-3.5 py-2.5 rounded-xl backdrop-blur-sm transition text-sm flex items-center gap-2 shadow border border-white/15">
+            <button onclick="toggleSound()" id="sound-btn" class="bg-black/40 hover:bg-black/60 p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl backdrop-blur-sm transition text-sm flex items-center gap-2 shadow border border-white/15 active:scale-95" title="الصوت">
                 <i class="fa-solid fa-volume-high" id="sound-icon"></i>
-            </button>
-
-            <button onclick="toggleAiModal()" class="custom-theme-btn font-bold px-3.5 py-2.5 rounded-xl transition text-sm flex items-center gap-2 shadow-lg">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <span class="hidden sm:inline">الذكاء الاصطناعي</span>
             </button>
         </div>
     </header>
 
-    <main class="w-full max-w-xl mx-auto px-4 flex-grow flex flex-col items-center justify-center my-6">
-        <div class="bg-black/30 p-1.5 rounded-2xl flex gap-1 mb-8 backdrop-blur-sm border border-white/20 w-full max-w-md shadow-xl">
-            <button onclick="setMode('pomodoro')" id="btn-pomodoro" class="flex-1 py-2.5 rounded-xl text-sm font-bold transition custom-theme-btn shadow">تركيز</button>
-            <button onclick="setMode('shortBreak')" id="btn-shortBreak" class="flex-1 py-2.5 rounded-xl text-sm font-bold transition text-white hover:bg-white/10">راحة قصيرة</button>
-            <button onclick="setMode('longBreak')" id="btn-longBreak" class="flex-1 py-2.5 rounded-xl text-sm font-bold transition text-white hover:bg-white/10">راحة طويلة</button>
+    <main class="w-full max-w-xl mx-auto px-4 flex-grow flex flex-col items-center justify-center my-4 sm:my-6">
+        <div class="bg-black/40 p-1.5 rounded-2xl flex gap-1 mb-6 backdrop-blur-sm border border-white/20 w-full max-w-md shadow-xl">
+            <button onclick="setMode('pomodoro')" id="btn-pomodoro" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition custom-theme-btn shadow">تركيز</button>
+            <button onclick="setMode('shortBreak')" id="btn-shortBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">راحة قصيرة</button>
+            <button onclick="setMode('longBreak')" id="btn-longBreak" class="flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10">راحة طويلة</button>
         </div>
 
         <div class="relative w-full">
-            <div id="progress-card" class="progress-box border border-white/25 w-full text-center relative overflow-hidden flex flex-col items-center">
+            <div id="progress-card" class="progress-box border border-white/25 w-full text-center relative overflow-hidden flex flex-col items-center py-8 sm:py-10">
                 <svg class="progress-svg" id="progress-svg">
                     <rect id="rect-bg" class="progress-rect-bg" x="3" y="3" width="99%" height="98%"></rect>
                     <rect id="rect-val" class="progress-rect-val" x="3" y="3" width="99%" height="98%"></rect>
                 </svg>
 
-                <div class="text-6xl sm:text-8xl font-black tracking-widest my-4 font-mono drop-shadow-lg z-20" id="timer-display">
+                <div class="text-6xl sm:text-8xl font-black tracking-widest my-4 font-mono drop-shadow-lg z-25 select-none" id="timer-display">
                     25:00
                 </div>
 
-                <div class="flex items-center justify-center gap-3 w-full z-20 mt-2">
-                    <button onclick="resetTimer()" class="bg-black/30 hover:bg-black/50 border border-white/20 text-white font-bold p-4 rounded-2xl transition shadow-lg active:scale-95" title="إعادة ضبط">
+                <div class="flex items-center justify-center gap-3 w-full z-25 mt-4 px-2">
+                    <button onclick="resetTimer()" class="bg-black/40 hover:bg-black/60 border border-white/20 text-white font-bold p-4 rounded-2xl transition shadow-lg active:scale-95" title="إعادة ضبط">
                         <i class="fa-solid fa-rotate-right text-xl"></i>
                     </button>
-                    <button onclick="toggleTimer()" id="start-pause-btn" class="custom-theme-btn font-black text-xl px-8 py-4 rounded-2xl shadow-xl transition transform active:scale-95 flex-grow">
+                    <button onclick="toggleTimer()" id="start-pause-btn" class="custom-theme-btn font-black text-lg sm:text-xl px-6 sm:px-8 py-4 rounded-2xl shadow-xl transition transform active:scale-95 flex-grow">
                         ابدأ التركيز
                     </button>
-                    <button onclick="openCustomTimeModal()" class="bg-black/30 hover:bg-black/50 border border-white/20 text-white font-bold p-4 rounded-2xl transition shadow-lg active:scale-95" title="تعديل وقت العداد">
+                    <button onclick="openCustomTimeModal()" class="bg-black/40 hover:bg-black/60 border border-white/20 text-white font-bold p-4 rounded-2xl transition shadow-lg active:scale-95" title="تعديل وقت العداد">
                         <i class="fa-solid fa-clock-rotate-left text-xl"></i>
-                    </button>
-                </div>
-                
-                <div id="ai-tip-box" class="mt-6 bg-black/30 backdrop-blur-sm border border-white/20 p-3.5 rounded-2xl text-xs sm:text-sm text-right flex items-start gap-3 w-full z-20">
-                    <i class="fa-solid fa-lightbulb text-amber-300 text-base mt-0.5"></i>
-                    <div class="flex-1">
-                        <span class="font-bold block text-amber-200 mb-0.5">نصيحة التركيز الذكية:</span>
-                        <span id="ai-tip-text">أغلق التنبيهات وضبط مكان عملك لتفادي التشتت أثناء الجلسة!</span>
-                    </div>
-                    <button onclick="generateAiTip()" class="text-white/70 hover:text-white transition" title="تحديث النصيحة">
-                        <i class="fa-solid fa-arrows-rotate" id="tip-refresh-icon"></i>
                     </button>
                 </div>
             </div>
@@ -189,33 +180,30 @@
     </main>
 
     <!-- Weekly Tasks Modal -->
-    <div id="weekly-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden">
-        <div class="blur-card text-white rounded-3xl p-5 sm:p-7 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-white/20">
-            <button onclick="toggleWeeklyModal()" class="absolute top-5 left-5 text-gray-300 hover:text-white transition bg-black/40 p-2 rounded-full w-10 h-10 flex items-center justify-center">
+    <div id="weekly-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="blur-card text-white rounded-3xl p-5 sm:p-8 max-w-4xl w-full max-h-[88vh] overflow-y-auto shadow-2xl relative border border-white/20">
+            <button onclick="toggleWeeklyModal()" class="absolute top-4 left-4 sm:top-6 sm:left-6 text-gray-300 hover:text-white transition bg-black/50 p-2.5 rounded-full w-10 h-10 flex items-center justify-center active:scale-95">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
-            <div class="flex items-center gap-3 mb-6">
+            <div class="flex items-center gap-3 mb-6 pr-2">
                 <div class="custom-theme-btn p-3 rounded-2xl">
                     <i class="fa-solid fa-calendar-week text-2xl"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-black">الجدول الأسبوعي الذكي - ليلة النجوم</h2>
-                    <p class="text-xs sm:text-sm text-gray-300">أكمل مهام يومك لتكسب عملات وتفتح بها الترفيه. إعادة ضبط أسبوعية تلقائية كل جمعة 12:00 م.</p>
+                    <h2 class="text-xl sm:text-2xl font-black">الجدول الأسبوعي الذكي - ليلة النجوم</h2>
+                    <p class="text-xs sm:text-sm text-gray-300">أكمل مهام يومك لتكسب عملات وتفتح بها الترفيه. إعادة ضبط أسبوعية تلقائية.</p>
                 </div>
             </div>
 
-            <!-- Days Grid -->
-            <div id="weekly-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Dynamically rendered tasks -->
-            </div>
+            <div id="weekly-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
     </div>
 
     <!-- Entertainment Modal -->
-    <div id="entertainment-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div id="entertainment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="blur-card text-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative border border-white/20 text-center">
-            <button onclick="toggleEntertainmentModal()" class="absolute top-5 left-5 text-gray-300 hover:text-white transition">
+            <button onclick="toggleEntertainmentModal()" class="absolute top-5 left-5 text-gray-300 hover:text-white transition bg-black/50 p-2 rounded-full w-9 h-9 flex items-center justify-center">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
@@ -224,13 +212,13 @@
             </div>
 
             <h2 class="text-2xl font-black mb-2">منطقة الترفيه والمكافآت</h2>
-            <p class="text-xs text-gray-300 mb-6">استخدم العملات التي جمعتها من إكمال مهامك اليومية لفتح فترة الترفيه.</p>
+            <p class="text-xs sm:text-sm text-gray-300 mb-6">استخدم العملات التي جمعتها من إكمال مهامك اليومية لفتح فترة الترفيه.</p>
 
             <div id="entertainment-card" class="bg-black/40 border border-white/15 p-5 rounded-2xl mb-6 flex flex-col items-center gap-3">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-playstation text-3xl text-indigo-400"></i>
                     <div class="text-right">
-                        <h3 class="font-bold text-lg">جلسة بلايستيشن / ترفيه</h3>
+                        <h3 class="font-bold text-base sm:text-lg">جلسة بلايستيشن / ترفيه</h3>
                         <p class="text-xs text-gray-400">تفتح المهمة طوال اليوم بعد تفعيلها</p>
                     </div>
                 </div>
@@ -241,8 +229,8 @@
     </div>
 
     <!-- Time Modification Modal -->
-    <div id="time-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900/90 backdrop-blur-md text-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-white/15 shadow-2xl relative">
+    <div id="time-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-white/15 shadow-2xl relative">
             <button onclick="openCustomTimeModal()" class="absolute top-5 left-5 text-gray-400 hover:text-white transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
@@ -256,16 +244,16 @@
                     <label class="block text-xs font-bold text-gray-300 mb-2">عدد الدقائق الجديدة:</label>
                     <input type="number" id="custom-minutes-input" min="1" max="180" value="25" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white text-lg text-center font-bold focus:outline-none focus:border-amber-400">
                 </div>
-                <button onclick="applyCustomTime()" class="w-full custom-theme-btn font-bold py-3.5 rounded-2xl shadow-lg transition">
+                <button onclick="applyCustomTime()" class="w-full custom-theme-btn font-bold py-3.5 rounded-2xl shadow-lg transition active:scale-95">
                     تطبيق وتحديث العداد
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Settings & Customization Modal -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900/90 backdrop-blur-md text-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/15 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/15 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="toggleSettingsModal()" class="absolute top-5 left-5 text-gray-400 hover:text-white transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
@@ -293,7 +281,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-300 mb-2">لون الأزرار والشريط المحيط بالعداد:</label>
+                    <label class="block text-xs font-bold text-gray-300 mb-2">لون الأزرار والإطار:</label>
                     <div class="flex items-center gap-3">
                         <input type="color" id="theme-color-picker" value="#f59e0b" onchange="updateThemeColor()" class="w-14 h-11 rounded-xl bg-transparent cursor-pointer border border-slate-700">
                         <span id="theme-color-code" class="text-xs font-mono text-gray-300">#f59e0b</span>
@@ -303,7 +291,7 @@
                 <div>
                     <label class="block text-xs font-bold text-gray-300 mb-2">إضافة خلفية خاصة من جهازك:</label>
                     <input type="file" id="custom-bg-input" accept="image/*" onchange="handleCustomBgUpload(event)" class="hidden">
-                    <button onclick="document.getElementById('custom-bg-input').click()" class="w-full p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2">
+                    <button onclick="document.getElementById('custom-bg-input').click()" class="w-full p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
                         <i class="fa-solid fa-upload text-amber-400"></i> اختار صورة من جهازك
                     </button>
                 </div>
@@ -311,68 +299,34 @@
                 <div>
                     <label class="block text-xs font-bold text-gray-300 mb-2">أو اختر خلفية جاهزة:</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="changeBackground('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=1920&auto=format&fit=crop')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <button onclick="changeBackground('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=1920&auto=format&fit=crop')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
                             <i class="fa-solid fa-city text-amber-400"></i> نيويورك الأصلي
                         </button>
-                        <button onclick="changeBackground('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=1920&auto=format&fit=crop')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <button onclick="changeBackground('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=1920&auto=format&fit=crop')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
                             <i class="fa-solid fa-moon text-blue-400"></i> نيويورك ليلاً
                         </button>
-                        <button onclick="changeBackground('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920&auto=format&fit=crop')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <button onclick="changeBackground('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920&auto=format&fit=crop')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
                             <i class="fa-solid fa-mountain text-emerald-400"></i> طبيعة هادئة
                         </button>
-                        <button onclick="changeBackground('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <button onclick="changeBackground('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1920&auto=format&fit=crop')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
                             <i class="fa-solid fa-star text-purple-400"></i> سماء النجوم
                         </button>
                     </div>
                 </div>
 
-                <button onclick="resetCustomization()" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-300 text-xs font-bold py-2.5 rounded-xl transition">
+                <button onclick="resetCustomization()" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-300 text-xs font-bold py-3 rounded-xl transition">
                     استعادة الإعدادات الافتراضية
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- AI Modal -->
-    <div id="ai-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900/90 backdrop-blur-md text-white rounded-3xl p-6 sm:p-8 max-w-lg w-full border border-white/15 shadow-2xl relative">
-            <button onclick="toggleAiModal()" class="absolute top-5 left-5 text-gray-400 hover:text-white transition">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            
-            <div class="flex items-center gap-3 mb-4">
-                <div class="custom-theme-btn p-3 rounded-2xl">
-                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold">المساعد الذكي (Gemini AI)</h2>
-                    <p class="text-xs text-gray-400">قسم هدفك الكبير إلى خطوات بومودورو سريعة وسهلة التنفيذ</p>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">ما هو الهدف أو المشروع الذي تريد العمل عليه؟</label>
-                    <textarea id="ai-goal-input" rows="3" placeholder="مثال: أريد تحضير وتقسيم دراسة الفصل الأول من كتاب الفيزياء..." 
-                        class="w-full bg-slate-800 border border-slate-700 rounded-2xl p-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition"></textarea>
-                </div>
-
-                <button onclick="generateTaskBreakdown()" id="ai-generate-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black py-3.5 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-brain"></i>
-                    <span>تقسيم الهدف بالذكاء الاصطناعي</span>
-                </button>
-
-                <div id="ai-results" class="hidden space-y-2 max-h-48 overflow-y-auto mt-4 p-2 bg-slate-800/50 rounded-2xl border border-slate-700"></div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="text-center py-4 text-white/70 text-sm border-t border-white/15 mt-auto bg-black/30 backdrop-blur-sm">
-        <p>مؤقت نيويورك بومودورو الاحترافي - منظم الوقت والإنتاجية الذكي 🚀</p>
+    <footer class="text-center py-4 text-white/70 text-xs sm:text-sm border-t border-white/15 mt-auto bg-black/40 backdrop-blur-sm">
+        <p>مؤقت نيويورك بومودورو الاحترافي - متوافق مع كافة الأجهزة اللوحية والمحمولة 🚀</p>
     </footer>
 
+    <!-- JAVASCRIPT (script.js integration) -->
     <script>
-        // Exact schedule data from "لييلة النجوم" project
         const DEFAULT_WEEKLY_SCHEDULE = [
             {
                 day: "السبت",
@@ -452,9 +406,6 @@
         let weeklyData = JSON.parse(localStorage.getItem('pomo_weekly_schedule_stars')) || DEFAULT_WEEKLY_SCHEDULE;
         let entUnlockedDate = localStorage.getItem('pomo_ent_unlocked_date') || null;
 
-        const API_KEY = ""; 
-        const GEMINI_TEXT_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
-
         function checkAutomaticResets() {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
@@ -490,9 +441,7 @@
             try {
                 localStorage.setItem('pomo_weekly_schedule_stars', JSON.stringify(weeklyData));
                 localStorage.setItem('pomo_coins', coins);
-            } catch (e) {
-                console.warn('LocalStorage limit reached:', e);
-            }
+            } catch (e) {}
             updateCoinsDisplay();
         }
 
@@ -505,12 +454,10 @@
             const day = weeklyData[dayIndex];
             const task = day.tasks[taskIndex];
 
-            // If object string is stored, convert to object structure if needed or toggle string format
-            // Here weeklyData tasks in stars project were simple strings. Let's map them to objects { text, completed } securely.
             if (typeof task === 'string') {
                 day.tasks[taskIndex] = { text: task, completed: true };
             } else {
-                if (task.completed) return; // Locked once completed
+                if (task.completed) return;
                 task.completed = true;
             }
 
@@ -532,22 +479,21 @@
             container.innerHTML = '';
 
             weeklyData.forEach((day, dayIdx) => {
-                // Ensure tasks are normalized to objects
                 day.tasks = day.tasks.map(t => typeof t === 'string' ? { text: t, completed: false } : t);
                 
                 const dayDone = isDayComplete(day);
                 const dayCard = document.createElement('div');
                 
                 dayCard.className = `relative p-4 rounded-2xl border transition overflow-hidden flex flex-col justify-between ${
-                    dayDone ? 'bg-emerald-950/40 border-emerald-500/50' : 'bg-black/30 border-white/15 backdrop-blur-md'
+                    dayDone ? 'bg-emerald-950/40 border-emerald-500/50' : 'bg-black/40 border-white/15 backdrop-blur-md'
                 }`;
 
                 let tasksHTML = day.tasks.map((task, taskIdx) => `
                     <div onclick="toggleTaskComplete(${dayIdx}, ${taskIdx})" 
-                         class="flex items-center justify-between p-2.5 rounded-xl border transition text-xs sm:text-sm ${
+                         class="flex items-center justify-between p-3 rounded-xl border transition text-xs sm:text-sm ${
                              task.completed 
                              ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-200 cursor-default' 
-                             : 'bg-black/20 border-white/10 text-gray-200 hover:bg-white/10 cursor-pointer'
+                             : 'bg-black/20 border-white/10 text-gray-200 hover:bg-white/10 cursor-pointer active:scale-98'
                          }">
                         <span class="${task.completed ? 'line-through text-emerald-300 font-medium' : ''}">${escapeHtml(task.text)}</span>
                         <i class="${task.completed ? 'fa-solid fa-circle-check text-emerald-400 text-base' : 'fa-regular fa-circle text-gray-400'}"></i>
@@ -582,7 +528,7 @@
 
         function unlockEntertainment() {
             if (coins < 50) {
-                alert('لا يوجد لديك عملات كافية! يلزمك 50 عملة لفتح الترفيه.');
+                showCustomMessage('لا يوجد لديك عملات كافية! يلزمك 50 عملة لفتح الترفيه.');
                 return;
             }
 
@@ -603,111 +549,18 @@
 
             if (isUnlocked) {
                 container.innerHTML = `
-                    <div class="bg-emerald-500/20 border border-emerald-500/50 p-3 rounded-xl text-emerald-300 text-xs font-bold flex items-center justify-center gap-2">
+                    <div class="bg-emerald-500/20 border border-emerald-500/50 p-3 rounded-xl text-emerald-300 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
                         <i class="fa-solid fa-lock-open text-base"></i>
-                        <span>مهمة الترفيه مفتوحة اليوم! تنتهي الساعة 12:00 منتصف الليل.</span>
+                        <span>مهمة الترفيه مفتوحة اليوم!</span>
                     </div>
                 `;
             } else {
                 container.innerHTML = `
-                    <button onclick="unlockEntertainment()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm">
+                    <button onclick="unlockEntertainment()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm active:scale-95">
                         <i class="fa-solid fa-key"></i>
                         <span>فتح الترفيه مقابل 50 عملة</span>
                     </button>
                 `;
-            }
-        }
-
-        async function fetchGemini(prompt, systemInstruction = "") {
-            const payload = { contents: [{ parts: [{ text: prompt }] }] };
-            if (systemInstruction) payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-
-            try {
-                const response = await fetch(GEMINI_TEXT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) return null;
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        async function generateAiTip() {
-            const icon = document.getElementById('tip-refresh-icon');
-            const tipText = document.getElementById('ai-tip-text');
-            if(icon) icon.classList.add('fa-spin');
-            tipText.innerText = "جاري جلب نصيحة التركيز...";
-
-            const prompt = "أعطني نصيحة واحدة قصيرة ومشجعة جداً (سطر واحد فقط باللغة العربية) لشخص يقوم بجلسة بومودورو للتركيز والمذاكرة الآن.";
-            const systemInst = "أنت مدرب إنتاجية وتحفيز خبير. اجعل النصيحة باللغة العربية، قصيرة، ملهِمة، ومباشرة بدون مقدمات.";
-            
-            const res = await fetchGemini(prompt, systemInst);
-            if(icon) icon.classList.remove('fa-spin');
-            if (res) {
-                tipText.innerText = res.trim();
-            } else {
-                tipText.innerText = "أبعد هاتفك عن يدك وركز على خطوة واحدة فقط الآن!";
-            }
-        }
-
-        async function generateTaskBreakdown() {
-            const goalInput = document.getElementById('ai-goal-input').value.trim();
-            const btn = document.getElementById('ai-generate-btn');
-            const resultsDiv = document.getElementById('ai-results');
-
-            if (!goalInput) {
-                alert('يرجى كتابة الهدف أولاً!');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري التقسيم الذكي...`;
-
-            const prompt = `أنا أريد تقسيم الهدف التالي إلى 3 إلى 5 مهام فرعية صغيرة، كل منها يمكن إنجازه في جلسة بومودورو (25 دقيقة): "${goalInput}".`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "ARRAY",
-                        items: {
-                            type: "OBJECT",
-                            properties: { "task": { "type": "STRING" } },
-                            "propertyOrdering": ["task"]
-                        }
-                    }
-                }
-            };
-
-            try {
-                const response = await fetch(GEMINI_TEXT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-                const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                const parsedTasks = JSON.parse(jsonText);
-
-                resultsDiv.innerHTML = '<p class="text-xs font-bold text-amber-300 mb-2">مقترحات الذكاء الاصطناعي لتقسيم الهدف:</p>';
-                resultsDiv.classList.remove('hidden');
-
-                parsedTasks.forEach(item => {
-                    const row = document.createElement('div');
-                    row.className = "p-2.5 bg-slate-800 rounded-xl text-xs border border-slate-700 text-gray-200";
-                    row.innerText = item.task;
-                    resultsDiv.appendChild(row);
-                });
-            } catch (e) {
-                alert('حدث خطأ أثناء الاتصال بالذكاء الاصطناعي. يرجى المحاولة مرة أخرى.');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fa-solid fa-brain"></i> تقسيم الهدف بالذكاء الاصطناعي`;
             }
         }
 
@@ -748,7 +601,7 @@
         }
 
         function changeBackground(imageUrl) {
-            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), url('${imageUrl}')`;
+            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('${imageUrl}')`;
             try {
                 localStorage.setItem('pomodoro_bg_ny', imageUrl);
             } catch (e) {}
@@ -774,7 +627,6 @@
 
         function setMode(mode) {
             if (isRunning) {
-                if (!confirm('العداد يعمل حالياً. هل تريد إيقافه وتغيير الوضع؟')) return;
                 pauseTimer();
             }
             currentMode = mode;
@@ -784,9 +636,9 @@
             ['pomodoro', 'shortBreak', 'longBreak'].forEach(m => {
                 const btn = document.getElementById(`btn-${m}`);
                 if (m === mode) {
-                    btn.className = "flex-1 py-2.5 rounded-xl text-sm font-bold transition custom-theme-btn shadow";
+                    btn.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition custom-theme-btn shadow";
                 } else {
-                    btn.className = "flex-1 py-2.5 rounded-xl text-sm font-bold transition text-white hover:bg-white/10";
+                    btn.className = "flex-1 py-3 rounded-xl text-xs sm:text-sm font-bold transition text-white hover:bg-white/10";
                 }
             });
             
@@ -813,8 +665,7 @@
                     clearInterval(timerId);
                     isRunning = false;
                     playBeep();
-                    generateAiTip();
-                    alert('انتهى الوقت! ممتاز، خذ استراحة أو انتقل للمهمة التالية.');
+                    showCustomMessage('انتهى الوقت! ممتاز، خذ استراحة أو انتقل للمهمة التالية.');
                     resetTimer();
                 }
             }, 1000);
@@ -882,6 +733,27 @@
             } catch (e) {}
         }
 
+        function showCustomMessage(msg) {
+            const existing = document.getElementById('custom-msg-box');
+            if (existing) existing.remove();
+
+            const box = document.createElement('div');
+            box.id = 'custom-msg-box';
+            box.className = "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            box.innerHTML = `
+                <div class="bg-slate-900 border border-white/20 p-6 rounded-3xl max-w-sm w-full text-center shadow-2xl animate-fade-in">
+                    <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <p class="text-sm font-bold text-white mb-6 leading-relaxed">${escapeHtml(msg)}</p>
+                    <button onclick="document.getElementById('custom-msg-box').remove()" class="w-full custom-theme-btn font-black py-3 rounded-xl shadow transition active:scale-95">
+                        حسناً
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(box);
+        }
+
         function toggleWeeklyModal() {
             document.getElementById('weekly-modal').classList.toggle('hidden');
         }
@@ -889,10 +761,6 @@
         function toggleEntertainmentModal() {
             document.getElementById('entertainment-modal').classList.toggle('hidden');
             renderEntertainmentStatus();
-        }
-
-        function toggleAiModal() {
-            document.getElementById('ai-modal').classList.toggle('hidden');
         }
 
         function toggleSettingsModal() {
@@ -914,7 +782,7 @@
                 updateDisplay();
                 openCustomTimeModal();
             } else {
-                alert('يرجى إدخال عدد دقائق صحيح بين 1 و 180.');
+                showCustomMessage('يرجى إدخال عدد دقائق صحيح بين 1 و 180.');
             }
         }
 
@@ -956,8 +824,8 @@
             renderWeeklySchedule();
             renderEntertainmentStatus();
             updateDisplay();
-            generateAiTip();
         }
     </script>
 </body>
 </html>
+```
