@@ -408,14 +408,17 @@ if (!container) return;
 container.innerHTML = '';
 ​scheduleData.forEach((dayObj, dayIndex) => {
 const card = document.createElement('div');
-card.className = "bg-black/30 backdrop-blur-md border border-white/20 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between shadow-xl";
+card.id = day-card-${dayIndex};
+card.className = "bg-black/30 backdrop-blur-md border border-white/20 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between shadow-xl transition-all duration-300";
 ​let tasksHtml = '<div class="space-y-3 mb-4"><ul class="space-y-2.5">';
 dayObj.tasks.forEach((taskText, taskIndex) => {
 tasksHtml += <li class="flex items-center justify-between p-3 rounded-xl bg-black/30 border border-white/10 transition text-xs sm:text-sm"> <span class="task-text text-gray-200" id="text-${dayIndex}-${taskIndex}">${escapeHtml(taskText)}</span> <input type="checkbox" class="custom-checkbox w-6 h-6 accent-amber-500 rounded-lg cursor-pointer" id="task-${dayIndex}-${taskIndex}" onchange="handleTaskChange(${dayIndex})"> </li>;
 });
 tasksHtml += '</ul></div>';
-​let headerHtml = <div class="flex items-center justify-between border-t border-white/15 pt-4 mt-2"> <h3 class="text-amber-300 font-black text-lg sm:text-xl flex items-center gap-2"> <i class="fa-solid fa-calendar-day text-amber-400"></i> ${dayObj.day} </h3> <div class="flex items-center gap-2"> <span class="text-xs text-gray-300 font-bold">مكتمل اليوم</span> <input type="checkbox" class="day-main-checkbox w-7 h-7 accent-emerald-500 rounded-xl pointer-events-none" id="day-box-${dayIndex}" disabled> </div> </div>;
-​card.innerHTML = tasksHtml + headerHtml;
+​let headerHtml = <div class="flex items-center justify-between border-t border-white/15 pt-4 mt-2"> <h3 id="day-title-${dayIndex}" class="text-amber-300 font-black text-lg sm:text-xl flex items-center gap-2 transition-colors"> <i id="day-icon-${dayIndex}" class="fa-solid fa-calendar-day text-amber-400"></i> ${dayObj.day} </h3> <div class="flex items-center gap-2"> <span id="day-status-text-${dayIndex}" class="text-xs text-gray-300 font-bold transition-colors">مكتمل اليوم</span> <input type="checkbox" class="day-main-checkbox w-7 h-7 accent-emerald-500 rounded-xl pointer-events-none" id="day-box-${dayIndex}" disabled> </div> </div>;
+​// طبقة الشعار والاحتفال الشفاف عند اكتمال اليوم (مطابق للصورة تماماً)
+let overlayHtml = <div id="day-overlay-${dayIndex}" class="absolute inset-0 bg-emerald-950/70 backdrop-blur-[3px] flex flex-col items-center justify-center z-20 pointer-events-none hidden transition-opacity duration-300"> <div class="w-16 h-16 bg-emerald-500/30 border border-emerald-400 rounded-full flex items-center justify-center mb-2 shadow-lg animate-bounce"> <i class="fa-solid fa-check text-3xl text-emerald-300"></i> </div> <span class="font-black text-emerald-200 text-base sm:text-lg tracking-wide drop-shadow">تم إكمال يوم ${dayObj.day}!</span> </div>;
+​card.innerHTML = tasksHtml + headerHtml + overlayHtml;
 container.appendChild(card);
 });
 }
@@ -439,9 +442,29 @@ txt.style.color = "#9ca3af";
 ​const dayMainBox = document.getElementById(day-box-${dayIndex});
 const wasCompleted = dayMainBox.checked;
 dayMainBox.checked = allDayCompleted;
-​if (allDayCompleted && !wasCompleted) {
+​const cardEl = document.getElementById(day-card-${dayIndex});
+const overlayEl = document.getElementById(day-overlay-${dayIndex});
+const titleEl = document.getElementById(day-title-${dayIndex});
+const iconEl = document.getElementById(day-icon-${dayIndex});
+const statusTxtEl = document.getElementById(day-status-text-${dayIndex});
+​if (allDayCompleted) {
+cardEl.className = "bg-emerald-950/40 backdrop-blur-md border border-emerald-500/50 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between shadow-xl transition-all duration-300";
+overlayEl.classList.remove('hidden');
+titleEl.className = "text-emerald-300 font-black text-lg sm:text-xl flex items-center gap-2 transition-colors";
+iconEl.className = "fa-solid fa-calendar-day text-emerald-400";
+statusTxtEl.className = "text-xs text-emerald-300 font-bold transition-colors";
+statusTxtEl.innerText = "مكتمل + عملات";
+​if (!wasCompleted) {
 coins += pointsPerTask * dayTaskCount;
 saveCoins();
+}
+} else {
+cardEl.className = "bg-black/30 backdrop-blur-md border border-white/20 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between shadow-xl transition-all duration-300";
+overlayEl.classList.add('hidden');
+titleEl.className = "text-amber-300 font-black text-lg sm:text-xl flex items-center gap-2 transition-colors";
+iconEl.className = "fa-solid fa-calendar-day text-amber-400";
+statusTxtEl.className = "text-xs text-gray-300 font-bold transition-colors";
+statusTxtEl.innerText = "مكتمل اليوم";
 }
 ​saveProgress();
 renderEntertainmentStatus();
